@@ -9,7 +9,17 @@ const totalLikes = (blogArrayOfObjects) => {
 
   return blogArrayOfObjects.reduce(reducer, 0);
 };
+
+const favoriteBlog = (blogArrayOfObjects) => {
+  const reducer = (previous, current) => {
+    return previous.likes > current.likes ? previous : current;
+  };
+
+  const fullFavoriteObject = blogArrayOfObjects.reduce(reducer, 0);
+
+  return (({ title, author, likes }) => ({ title, author, likes }))(fullFavoriteObject);
+};
   
 module.exports = {
-  dummy, totalLikes
+  dummy, totalLikes, favoriteBlog
 };
