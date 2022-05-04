@@ -2,7 +2,7 @@ POST http://localhost:3001/api/blogs/
 content-type: application/json
 
 {
-    "title": "third time's the charm",
+    "title": "Henry the 5th",
     "author": "some dude",
     "url": "a web address",
     "likes": 12
