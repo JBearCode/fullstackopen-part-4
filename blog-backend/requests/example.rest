@@ -1,7 +1,9 @@
-POST http://localhost:3001/api/notes/
+POST http://localhost:3001/api/blogs/
 content-type: application/json
 
 {
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+    "title": "third time's the charm",
+    "author": "some dude",
+    "url": "a web address",
+    "likes": 12
 }
