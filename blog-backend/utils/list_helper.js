@@ -1,6 +1,4 @@
-const dummy = (a) => {
-  if (a || !a) return 1;
-};
+var groupBy = require('lodash/groupby');
 
 const totalLikes = (blogArrayOfObjects) => {
   const reducer = (sum, blog) => {
@@ -19,7 +17,24 @@ const favoriteBlog = (blogArrayOfObjects) => {
 
   return (({ title, author, likes }) => ({ title, author, likes }))(fullFavoriteObject);
 };
+
+const mostBlogs = (blogArrayOfObjects) => {
+  const reducer = (previous, current) => {
+    return previous.length > current.length ? previous : current;
+  }
+
+  const grouped = groupBy(blogArrayOfObjects, 'author');
+  const entries = Object.entries(grouped);
+  const reduced = entries.reduce(reducer, 0);
+  const authorBlogsObject = {
+    author: reduced[0],
+    blogs: reduced[1].length
+  };
+
+  return authorBlogsObject;
+};
+
   
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  totalLikes, favoriteBlog, mostBlogs
 };

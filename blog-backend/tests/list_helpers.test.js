@@ -62,13 +62,6 @@ const manyBlogs = [
   }  
 ];
 
-test('dummy returns one', () => {
-  const blogs = [];
-
-  const result = listHelper.dummy(blogs);
-  expect(result).toBe(1);
-});
-
 describe('total likes', () => {
   
   test('when list has only one blog, equals the likes of that', () => {
@@ -103,5 +96,27 @@ describe('smaller object with most likes', () => {
   test('when list has many blogs, returns smaller object of one blog with most likes', () => {
     const result = listHelper.favoriteBlog(manyBlogs);
     expect(result).toEqual(smallerObject2);
+  });
+});
+
+describe('find author with most blogs', () => {
+  const firstObject = {
+    author: 'Edsger W. Dijkstra',
+    blogs: 1
+  };
+  
+  const secondObject = {
+    author: 'Robert C. Martin',
+    blogs: 3
+  };
+  
+  test('when list has only one blog, return object with author and 1', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog);
+    expect(result).toEqual(firstObject);
+  });
+
+  test('when list has many blogs, return object with author and number of blogs', () => {
+    const result = listHelper.mostBlogs(manyBlogs);
+    expect(result).toEqual(secondObject);
   });
 });
