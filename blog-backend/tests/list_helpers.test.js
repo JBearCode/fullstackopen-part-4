@@ -49,7 +49,7 @@ const manyBlogs = [
     title: 'TDD harms architecture',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
-    likes: 0,
+    likes: 11,
     __v: 0
   },
   {
@@ -71,7 +71,7 @@ describe('total likes', () => {
 
   test('when list has many blogs, equals the likes of all blogs', () => {
     const result = listHelper.totalLikes(manyBlogs);
-    expect(result).toBe(36);
+    expect(result).toBe(47);
   });
 });
 
@@ -117,6 +117,28 @@ describe('find author with most blogs', () => {
 
   test('when list has many blogs, return object with author and number of blogs', () => {
     const result = listHelper.mostBlogs(manyBlogs);
+    expect(result).toEqual(secondObject);
+  });
+});
+
+describe('find author with most likes', () => {
+  const firstObject = {
+    author: 'Edsger W. Dijkstra',
+    likes: 5
+  };
+    
+  const secondObject = {
+    author: 'Robert C. Martin',
+    likes: 23
+  };
+  
+  test('across one blog', () => {
+    const result = listHelper.mostLikes(listWithOneBlog);
+    expect(result).toEqual(firstObject);
+  });
+
+  test('across many blogs', () => {
+    const result = listHelper.mostLikes(manyBlogs);
     expect(result).toEqual(secondObject);
   });
 });
