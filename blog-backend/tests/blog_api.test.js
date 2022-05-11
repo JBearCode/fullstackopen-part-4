@@ -82,6 +82,11 @@ test('blogs contain an expected author', async () => {
   );
 });
 
+test('blogs have id key', async () => {
+  const response = await api.get('/api/blogs');
+  expect(response.body[0].id).toBeDefined();
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
