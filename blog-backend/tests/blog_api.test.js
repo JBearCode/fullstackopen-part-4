@@ -90,6 +90,23 @@ test('authorless blog is not added', async () => {
   expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);  
 }, 100000);
 
+test('likes defaults to 0', async () => {
+  const newBlog = {
+    title: 'checking POST without likes',
+    author: 'me',
+    url: 'a link'
+  };
+    
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201);
+    
+  const blogsAtEnd = await helper.blogsInDb();
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1);
+  expect(blogsAtEnd[blogsAtEnd.length - 1].likes).toEqual(0);
+}, 100000);
+
 
 afterAll(() => {
   mongoose.connection.close();
