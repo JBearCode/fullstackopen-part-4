@@ -53,7 +53,7 @@ describe('testing GET requests to base URL', () => {
 
 });
 
-describe('testing PUT requests', () => {
+describe('testing POST requests', () => {
   test('a valid blog can be added', async () => {
     const newBlog = {
       title: 'learning to use async/await',
@@ -143,7 +143,25 @@ describe('testing DELETE requests', () => {
   }, 100000);
 });
   
-
+describe('testing PUT requests', () => {
+  test('blog votes can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToUpdate = blogsAtStart[0];
+    
+    const updatedBlog = {
+      likes: 20
+    };
+          
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updatedBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+        
+    const blogsAtEnd = await helper.blogsInDb();
+    expect(blogsAtEnd[0].likes).toEqual(20);
+  }, 100000);
+});
 
 
 
