@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs/
+content-type: application/json
+
+{
+    "title": "it's all connected",
+    "author": "me",
+    "url": "a web address",
+    "likes": 18,
+    "userId": "627cc3a7bfad3940405b9fcc"
+}
