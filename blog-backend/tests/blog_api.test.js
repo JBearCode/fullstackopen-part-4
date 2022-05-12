@@ -74,16 +74,26 @@ test('a valid blog can be added', async () => {
   );
 }, 100000);
 
-test('authorless blog is not added', async () => {
-  const newBlog = {
+test('authorless / no url blogs are not added', async () => {
+  const authorlessBlog = {
     title: 'learning to use async/await',
     url: 'a link',
     likes: 5
   };
+  const noUrlBlog = {
+    title: 'learning to use async/await',
+    author: 'somebody',
+    likes: 0
+  };
   
   await api
     .post('/api/blogs')
-    .send(newBlog)
+    .send(authorlessBlog)
+    .expect(400);
+
+  await api
+    .post('/api/blogs')
+    .send(noUrlBlog)
     .expect(400);
   
   const blogsAtEnd = await helper.blogsInDb();
