@@ -179,9 +179,9 @@ describe('testing users in database', () => {
     const usersAtStart = await helper.usersInDb();
 
     const newUser = {
-      username: 'elonmusk',
-      name: 'Elon Musk',
-      password: 'tesla',
+      username: 'henry',
+      name: 'Henry Ford',
+      password: 'ford',
     };
 
     await api
@@ -217,16 +217,28 @@ describe('testing users in database', () => {
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtEnd).toEqual(usersAtStart);
   });
+
+  test('creation fails with proper statuscode and message if username or password is too short', async () => {
+    const usersAtStart = await helper.usersInDb();
+
+    const newUser = {
+      username: 'A',
+      name: 'Arnold',
+      password: 'milkisforbabies',
+    };
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
+
+    expect(result.body.error).toContain('username and password must each be at least three characters long');
+
+    const usersAtEnd = await helper.usersInDb();
+    expect(usersAtEnd).toEqual(usersAtStart);
+  });
 });
-
-
-
-
-
-
-
-
-
 
 afterAll(() => {
   mongoose.connection.close();
