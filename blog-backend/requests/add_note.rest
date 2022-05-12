@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs/
-content-type: application/json
+Content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsb25tdXNrIiwiaWQiOiI2MjdjYzM5NGJmYWQzOTQwNDA1YjlmYzkiLCJpYXQiOjE2NTIzNjIwNjEsImV4cCI6MTY2MTAwMjA2MX0.txlC-H4XPVBsn52BDOaDhfdl8ssWWoUYLXrV_Sutl04
 
 {
-    "title": "it's all connected",
-    "author": "me",
+    "title": "added with token in authorization header",
+    "author": "Elon",
     "url": "a web address",
-    "likes": 18,
-    "userId": "627cc3a7bfad3940405b9fcc"
+    "likes": 2
 }
