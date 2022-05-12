@@ -2,8 +2,7 @@ POST http://localhost:3001/api/blogs/
 content-type: application/json
 
 {
-    "title": "Henry the 5th",
-    "author": "some dude",
+    "title": "testing note with failed validation",
     "url": "a web address",
     "likes": 12
 }
