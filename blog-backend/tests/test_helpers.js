@@ -7,6 +7,7 @@ const initialBlogs = [
     'author': 'some dude',
     'url': 'a web address',
     'likes': 0,
+    'user': '627d0bdfc961bc2240037f18',
     'id': '6272058048fe793e684b75c3'
   },
   {
@@ -14,6 +15,7 @@ const initialBlogs = [
     'author': 'some dude',
     'url': 'a web address',
     'likes': 7,
+    'user': '627d0bdfc961bc2240037f18',
     'id': '6272059048fe793e684b75c5'
   },
   {
@@ -21,6 +23,7 @@ const initialBlogs = [
     'author': 'some dude',
     'url': 'a web address',
     'likes': 18,
+    'user': '627d0bdfc961bc2240037f18',
     'id': '6272059c48fe793e684b75c7'
   },
   {
@@ -28,6 +31,7 @@ const initialBlogs = [
     'author': 'some dude',
     'url': 'a web address',
     'likes': 9,
+    'user': '627d0bdfc961bc2240037f18',
     'id': '6272068c478cc86a64efc803'
   },
   {
@@ -35,6 +39,7 @@ const initialBlogs = [
     'author': 'some dude',
     'url': 'a web address',
     'likes': 5,
+    'user': '627d0bdfc961bc2240037f18',
     'id': '627207f2478cc86a64efc806'
   }
 ];
