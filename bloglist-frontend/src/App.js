@@ -9,10 +9,12 @@ const App = () => {
   const [newBlog, setNewBlog] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
-  const [message, setMessage] = useState('')
+  const [messageText, setMessageText] = useState(null)
+  const [messageColor, setMessageColor] = useState("green")
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
+
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -43,9 +45,10 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setMessage('Wrong credentials')
+      setMessageColor('red')
+      setMessageText('Wrong credentials')
       setTimeout(() => {
-        setMessage(null)
+        setMessageText(null)
       }, 5000)
     }
   }
@@ -65,16 +68,19 @@ const App = () => {
     try {
       const response = await blogService.create(newBlogToSubmit)
       setBlogs(blogs.concat(response))
+      setMessageColor('green')
+      setMessageText(`New Blog Added: ${response.title} by ${response.author}`)
       setUser(user)
       setNewBlog('')
       setNewAuthor('')
       setNewUrl('')
     } catch (exception) {
-      setMessage('Failed to add blog')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      setMessageColor('red')
+      setMessageText('Failed to add blog')
     }
+    setTimeout(() => {
+      setMessageText(null)
+    }, 5000)
   }
 
   const loginForm = () => (
@@ -137,6 +143,10 @@ const App = () => {
   return (
     <div>
       <h2>favorite blogs app</h2>
+      <Notification
+        messageText={messageText}
+        messageColor={messageColor}
+      />
       {user === null ?
       loginForm() :
       <div>
@@ -154,5 +164,27 @@ const App = () => {
     </div>
   )
 }
+
+const Notification = ({ messageText, messageColor }) => {
+  const styleObject = {
+    color: messageColor,
+    background: 'lightgrey',
+    fontSize: 20,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  };
+
+  if (messageText === null) {
+    return null;
+  }
+
+  return (
+    <div className='notification' style={styleObject}>
+      {messageText}
+    </div>
+  );
+};
 
 export default App
