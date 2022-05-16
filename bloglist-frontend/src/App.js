@@ -6,6 +6,9 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [newBlog, setNewBlog] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('') 
@@ -52,6 +55,28 @@ const App = () => {
     setUser(null)
   }
 
+  const handleNewBlog = async (event) => {
+    event.preventDefault()
+    const newBlogToSubmit = {
+      title: newBlog,
+      author: newAuthor,
+      url: newUrl
+    }
+    try {
+      const response = await blogService.create(newBlogToSubmit)
+      setBlogs(blogs.concat(response))
+      setUser(user)
+      setNewBlog('')
+      setNewAuthor('')
+      setNewUrl('')
+    } catch (exception) {
+      setMessage('Failed to add blog')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -76,6 +101,39 @@ const App = () => {
     </form>      
   )
 
+  const creationForm = () => (
+    <form onSubmit={handleNewBlog}>
+      <div>
+        blog name
+          <input
+          type="text"
+          value={newBlog}
+          name="Blogname"
+          onChange={({ target }) => setNewBlog(target.value)}
+        />
+      </div>
+      <div>
+        author
+          <input
+          type="text"
+          value={newAuthor}
+          name="Authorname"
+          onChange={({ target }) => setNewAuthor(target.value)}
+        />
+      </div>
+      <div>
+        url
+          <input
+          type="text"
+          value={newUrl}
+          name="URL"
+          onChange={({ target }) => setNewUrl(target.value)}
+        />
+      </div>
+      <button type="submit">Submit New Blog</button>
+    </form>      
+  )
+
   return (
     <div>
       <h2>favorite blogs app</h2>
@@ -84,7 +142,9 @@ const App = () => {
       <div>
         <p>{user.name} is logged in.</p>
         <button onClick={logUserOut}>Log Out</button>
-        <h2>blogs</h2>
+        <h2>Submit New Blog</h2>
+        <div>{creationForm()}</div>
+        <h2>Blogs</h2>
         {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
