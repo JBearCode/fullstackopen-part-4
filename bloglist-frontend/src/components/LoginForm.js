@@ -5,23 +5,29 @@ const LoginForm = ({
     user, setUser, setMessageColor, setMessageText
   }) => {
 
+    // state of login form input fields
     const [username, setUsername] = useState('') 
     const [password, setPassword] = useState('') 
     
     const handleLogin = async (event) => {
       event.preventDefault()
       
+      // attempt server login with given username and password
       try {
         const user = await loginService.login({
           username, password,
         })
+        // save successful login to localStorage
         window.localStorage.setItem(
           'loggedInUser', JSON.stringify(user)
         ) 
+        // provide user object to user state in app
         setUser(user)
+        // reset username and password form input fields
         setUsername('')
         setPassword('')
       } catch (exception) {
+        // display error message if login fails
         setMessageColor('red')
         setMessageText('Wrong credentials')
         setTimeout(() => {

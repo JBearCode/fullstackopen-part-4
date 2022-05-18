@@ -3,7 +3,7 @@ import blogService from '../services/blogs'
 
 
 const CreationForm = ({
-  setBlogs, blogs, setMessageColor, setMessageText, setUser, user
+  setBlogs, blogs, setMessageColor, setMessageText, setUser, user, creationFormRef
 }) => {
 
     const [newBlog, setNewBlog] = useState('')
@@ -18,6 +18,8 @@ const CreationForm = ({
           url: newUrl
         }
         try {
+          // change 'visible' state in Togglable component through useRef
+          creationFormRef.current.toggleVisibility()
           const response = await blogService.create(newBlogToSubmit)
           setBlogs(blogs.concat(response))
           setMessageColor('green')
