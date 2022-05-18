@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
 import CreationForm from './components/CreationForm'
+import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -55,7 +56,7 @@ const App = () => {
     }
   }
 
-  const logUserOut = () => {
+  const handleLogout = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
   }
@@ -85,30 +86,6 @@ const App = () => {
     }, 5000)
   }
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-          <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-          <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>      
-  )
-
   return (
     <div>
       <h2>Favorite Blogs App</h2>
@@ -117,10 +94,16 @@ const App = () => {
         messageColor={messageColor}
       />
       {user === null ?
-      loginForm() :
+      <LoginForm
+        handleLogin={handleLogin}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+      /> :
       <div>
         <p>{user.name} is logged in.</p>
-        <button onClick={logUserOut}>Log Out</button>
+        <button onClick={handleLogout}>Log Out</button>
         <h2>Submit New Blog</h2>
         <CreationForm
           handleNewBlog={handleNewBlog}
