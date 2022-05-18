@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
+import CreationForm from './components/CreationForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -108,39 +109,6 @@ const App = () => {
     </form>      
   )
 
-  const creationForm = () => (
-    <form onSubmit={handleNewBlog}>
-      <div>
-        blog name
-          <input
-          type="text"
-          value={newBlog}
-          name="Blogname"
-          onChange={({ target }) => setNewBlog(target.value)}
-        />
-      </div>
-      <div>
-        author
-          <input
-          type="text"
-          value={newAuthor}
-          name="Authorname"
-          onChange={({ target }) => setNewAuthor(target.value)}
-        />
-      </div>
-      <div>
-        url
-          <input
-          type="text"
-          value={newUrl}
-          name="URL"
-          onChange={({ target }) => setNewUrl(target.value)}
-        />
-      </div>
-      <button type="submit">Submit New Blog</button>
-    </form>      
-  )
-
   return (
     <div>
       <h2>Favorite Blogs App</h2>
@@ -154,7 +122,15 @@ const App = () => {
         <p>{user.name} is logged in.</p>
         <button onClick={logUserOut}>Log Out</button>
         <h2>Submit New Blog</h2>
-        <div>{creationForm()}</div>
+        <CreationForm
+          handleNewBlog={handleNewBlog}
+          newBlog={newBlog}
+          setNewBlog={setNewBlog}
+          newAuthor={newAuthor}
+          setNewAuthor={setNewAuthor}
+          newUrl={newUrl}
+          setNewUrl={setNewUrl}
+        />
         <h2>Blogs</h2>
         {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
