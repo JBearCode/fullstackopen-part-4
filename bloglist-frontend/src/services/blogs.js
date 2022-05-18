@@ -14,6 +14,11 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+const getOne = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
+  return request.then(response => response.data)
+}
+
 // POST new blog to server
 const create = async newObject => {
   const config = {
@@ -24,4 +29,14 @@ const create = async newObject => {
   return response.data
 }
 
-export default { getAll, create, setToken }
+// update blog likes
+const update = async ( id, updatedObject ) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+
+  const response = await axios.put(`${baseUrl}/${id}`, updatedObject, config)
+  return response.data
+}
+
+export default { getAll, getOne, create, setToken, update }

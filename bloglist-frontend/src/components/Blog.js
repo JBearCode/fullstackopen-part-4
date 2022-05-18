@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import blogService from '../services/blogs'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, blogs, setBlogs}) => {
+  // state for whether all blog info should be shown
   const [expanded, setExpanded] = useState(false)
+  console.log(blog.user.name)
 
+  // style for each blog in list
   const blogStyle = {
     paddingTop: 5,
     paddingLeft: 5,
@@ -15,6 +19,19 @@ const Blog = ({blog}) => {
     expanded ? setExpanded(false) : setExpanded(true)
   }
 
+  // update number of likes for one blog, then update app state
+  const updateLikes = async (id, likes) => {
+    console.log(id, likes)
+    const likesObject = {
+      likes: likes + 1
+    }
+    await blogService.update(id, likesObject)
+    const allUpdated = await blogService.getAll()
+    const oneUpdated = allUpdated.filter(b => b.id === id)[0]
+    setBlogs(blogs.map(b => b.id !== id ? b : oneUpdated))
+  }
+
+  // return shorter or longer listing based on 'expanded' state
   if (!expanded) {
     return (
       <div style={blogStyle}>
@@ -29,7 +46,7 @@ const Blog = ({blog}) => {
         <p>{blog.title}<button onClick={toggleExpansion}>Hide</button></p>
         <p>Author: {blog.author}</p>
         <p>URL: {blog.url}</p>
-        <p>Likes: {blog.likes}<button>Like</button></p>
+        <p>Likes: {blog.likes}<button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
         <p>Submitted by {blog.user.name}</p>
       </div>  
     ) 

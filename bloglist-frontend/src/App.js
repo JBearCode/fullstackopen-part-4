@@ -6,7 +6,7 @@ import CreationForm from './components/CreationForm'
 import LoginForm from './components/LoginForm'
 import LogoutButton from './components/LogoutButton'
 import Togglable from './components/Togglable'
-// service to get blogs from server
+// service to communicate with server via axios
 import blogService from './services/blogs'
 
 
@@ -73,7 +73,7 @@ const App = () => {
           {creationForm()}
           <h2>Blogs</h2>
           {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs}/>
           )}
         </div>
       }      

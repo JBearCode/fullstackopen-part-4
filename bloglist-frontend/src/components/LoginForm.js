@@ -28,6 +28,7 @@ const LoginForm = ({
         setPassword('')
       } catch (exception) {
         // display error message if login fails
+        console.log(exception)
         setMessageColor('red')
         setMessageText('Wrong credentials')
         setTimeout(() => {
