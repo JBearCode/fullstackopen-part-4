@@ -1,6 +1,35 @@
-  const LoginForm = ({
-    handleLogin, username, setUsername, password, setPassword
+import { useState } from 'react'
+import loginService from '../services/login'
+
+const LoginForm = ({
+    user, setUser, setMessageColor, setMessageText
   }) => {
+
+    const [username, setUsername] = useState('') 
+    const [password, setPassword] = useState('') 
+    
+    const handleLogin = async (event) => {
+      event.preventDefault()
+      
+      try {
+        const user = await loginService.login({
+          username, password,
+        })
+        window.localStorage.setItem(
+          'loggedInUser', JSON.stringify(user)
+        ) 
+        setUser(user)
+        setUsername('')
+        setPassword('')
+      } catch (exception) {
+        setMessageColor('red')
+        setMessageText('Wrong credentials')
+        setTimeout(() => {
+          setMessageText(null)
+        }, 5000)
+      }
+    }  
+
     return(
     <form onSubmit={handleLogin}>
       <div>

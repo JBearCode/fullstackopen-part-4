@@ -3,21 +3,18 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import CreationForm from './components/CreationForm'
 import LoginForm from './components/LoginForm'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
-import loginService from './services/login'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [user, setUser] = useState(null)
   const [newBlog, setNewBlog] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
   const [messageText, setMessageText] = useState(null)
   const [messageColor, setMessageColor] = useState("green")
-  const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
-
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -33,28 +30,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-      window.localStorage.setItem(
-        'loggedInUser', JSON.stringify(user)
-      ) 
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    } catch (exception) {
-      setMessageColor('red')
-      setMessageText('Wrong credentials')
-      setTimeout(() => {
-        setMessageText(null)
-      }, 5000)
-    }
-  }
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedInUser')
@@ -95,16 +70,17 @@ const App = () => {
       />
       {user === null ?
       <LoginForm
-        handleLogin={handleLogin}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
+        user={user}
+        setUser={setUser}
+        setMessageColor={setMessageColor}
+        setMessageText={setMessageText}
       /> :
       <div>
         <p>{user.name} is logged in.</p>
         <button onClick={handleLogout}>Log Out</button>
-        <h2>Submit New Blog</h2>
+        <Togglable buttonLabel="Add a New Blog">
+        <h2>Add New Blog</h2>
+
         <CreationForm
           handleNewBlog={handleNewBlog}
           newBlog={newBlog}
@@ -114,6 +90,7 @@ const App = () => {
           newUrl={newUrl}
           setNewUrl={setNewUrl}
         />
+        </Togglable>
         <h2>Blogs</h2>
         {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />

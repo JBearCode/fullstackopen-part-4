@@ -5,7 +5,7 @@ const CreationForm = ({
     return (
     <form onSubmit={handleNewBlog}>
       <div>
-        blog name
+        Blog Name 
           <input
           type="text"
           value={newBlog}
@@ -14,7 +14,7 @@ const CreationForm = ({
         />
       </div>
       <div>
-        author
+        Author 
           <input
           type="text"
           value={newAuthor}
@@ -23,7 +23,7 @@ const CreationForm = ({
         />
       </div>
       <div>
-        url
+        URL 
           <input
           type="text"
           value={newUrl}
