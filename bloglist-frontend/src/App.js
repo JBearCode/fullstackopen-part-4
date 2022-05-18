@@ -11,9 +11,6 @@ import blogService from './services/blogs'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [newBlog, setNewBlog] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
   const [messageText, setMessageText] = useState(null)
   const [messageColor, setMessageColor] = useState("green")
 
@@ -32,31 +29,6 @@ const App = () => {
     }
   }, [])
 
-  const handleNewBlog = async (event) => {
-    event.preventDefault()
-    const newBlogToSubmit = {
-      title: newBlog,
-      author: newAuthor,
-      url: newUrl
-    }
-    try {
-      const response = await blogService.create(newBlogToSubmit)
-      setBlogs(blogs.concat(response))
-      setMessageColor('green')
-      setMessageText(`New Blog Added: ${response.title} by ${response.author}`)
-      setUser(user)
-      setNewBlog('')
-      setNewAuthor('')
-      setNewUrl('')
-    } catch (exception) {
-      setMessageColor('red')
-      setMessageText('Failed to add blog')
-    }
-    setTimeout(() => {
-      setMessageText(null)
-    }, 5000)
-  }
-
   return (
     <div>
       <h2>Favorite Blogs App</h2>
@@ -65,35 +37,32 @@ const App = () => {
         messageColor={messageColor}
       />
       {user === null ?
-      <LoginForm
-        user={user}
-        setUser={setUser}
-        setMessageColor={setMessageColor}
-        setMessageText={setMessageText}
-      /> :
-      <div>
-        <p>{user.name} is logged in.</p>
-        <LogoutButton setUser={setUser}/>
-        <Togglable buttonLabel="Add a New Blog">
-        <h2>Add New Blog</h2>
-
-        <CreationForm
-          handleNewBlog={handleNewBlog}
-          newBlog={newBlog}
-          setNewBlog={setNewBlog}
-          newAuthor={newAuthor}
-          setNewAuthor={setNewAuthor}
-          newUrl={newUrl}
-          setNewUrl={setNewUrl}
-        />
-        </Togglable>
-        <h2>Blogs</h2>
-        {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
-      </div>
-    }      
-
+        <LoginForm
+          user={user}
+          setUser={setUser}
+          setMessageColor={setMessageColor}
+          setMessageText={setMessageText}
+        /> :
+        <div>
+          <p>{user.name} is logged in.</p>
+          <LogoutButton setUser={setUser}/>
+          <Togglable buttonLabel="Add a New Blog">
+            <h2>Add New Blog</h2>
+            <CreationForm
+              setBlogs={setBlogs}
+              blogs={blogs}
+              setMessageColor={setMessageColor}
+              setMessageText={setMessageText}
+              setUser={setUser}
+              user={user}
+            />
+          </Togglable>
+          <h2>Blogs</h2>
+          {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+          )}
+        </div>
+      }      
     </div>
   )
 }

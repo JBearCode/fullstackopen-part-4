@@ -1,6 +1,39 @@
+import { useState } from 'react'
+import blogService from '../services/blogs'
+
+
 const CreationForm = ({
-    handleNewBlog, newBlog, setNewBlog, newAuthor, setNewAuthor, newUrl, setNewUrl
+  setBlogs, blogs, setMessageColor, setMessageText, setUser, user
 }) => {
+
+    const [newBlog, setNewBlog] = useState('')
+    const [newAuthor, setNewAuthor] = useState('')
+    const [newUrl, setNewUrl] = useState('')
+
+    const handleNewBlog = async (event) => {
+        event.preventDefault()
+        const newBlogToSubmit = {
+          title: newBlog,
+          author: newAuthor,
+          url: newUrl
+        }
+        try {
+          const response = await blogService.create(newBlogToSubmit)
+          setBlogs(blogs.concat(response))
+          setMessageColor('green')
+          setMessageText(`New Blog Added: ${response.title} by ${response.author}`)
+          setUser(user)
+          setNewBlog('')
+          setNewAuthor('')
+          setNewUrl('')
+        } catch (exception) {
+          setMessageColor('red')
+          setMessageText('Failed to add blog')
+        }
+        setTimeout(() => {
+          setMessageText(null)
+        }, 5000)
+      }
     
     return (
     <form onSubmit={handleNewBlog}>
