@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import CreationForm from './components/CreationForm'
 import LoginForm from './components/LoginForm'
+import LogoutButton from './components/LogoutButton'
 import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 
@@ -30,11 +31,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedInUser')
-    setUser(null)
-  }
 
   const handleNewBlog = async (event) => {
     event.preventDefault()
@@ -77,7 +73,7 @@ const App = () => {
       /> :
       <div>
         <p>{user.name} is logged in.</p>
-        <button onClick={handleLogout}>Log Out</button>
+        <LogoutButton setUser={setUser}/>
         <Togglable buttonLabel="Add a New Blog">
         <h2>Add New Blog</h2>
 
