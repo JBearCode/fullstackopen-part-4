@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -142,7 +143,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>favorite blogs app</h2>
+      <h2>Favorite Blogs App</h2>
       <Notification
         messageText={messageText}
         messageColor={messageColor}
@@ -164,27 +165,5 @@ const App = () => {
     </div>
   )
 }
-
-const Notification = ({ messageText, messageColor }) => {
-  const styleObject = {
-    color: messageColor,
-    background: 'lightgrey',
-    fontSize: 20,
-    borderStyle: 'solid',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  };
-
-  if (messageText === null) {
-    return null;
-  }
-
-  return (
-    <div className='notification' style={styleObject}>
-      {messageText}
-    </div>
-  );
-};
 
 export default App
