@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 // components
-import Blog from './components/Blog'
 import Notification from './components/Notification'
 import CreationForm from './components/CreationForm'
 import LoginForm from './components/LoginForm'

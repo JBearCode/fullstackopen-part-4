@@ -1,4 +1,5 @@
 import Blog from './Blog'
+import PropTypes from 'prop-types'
 
 const ListedBlogs = ({ blogs, setBlogs, sortBy, user }) => {
     if (sortBy === 'default') {
@@ -27,6 +28,10 @@ const ListedBlogs = ({ blogs, setBlogs, sortBy, user }) => {
         console.log("error with sortBy state preventing blogs from being displayed by ListedBlogs component")
         return null
     }
+  }
+
+  ListedBlogs.propTypes = {
+    sortBy: PropTypes.string.isRequired,
   }
   
   export default ListedBlogs
