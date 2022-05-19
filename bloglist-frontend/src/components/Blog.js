@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, blogs, setBlogs, user }) => {
+const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
   // state for whether all blog info should be shown
   const [expanded, setExpanded] = useState(false);
   console.log(blog.user.name);
@@ -26,18 +26,6 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5
-  };
-
-  // update number of likes for one blog, then update app state
-  const updateLikes = async (id, likes) => {
-    console.log(id, likes);
-    const likesObject = {
-      likes: likes + 1
-    };
-    await blogService.update(id, likesObject);
-    const allUpdated = await blogService.getAll();
-    const oneUpdated = allUpdated.filter(b => b.id === id)[0];
-    setBlogs(blogs.map(b => b.id !== id ? b : oneUpdated));
   };
 
   // return shorter or longer listing based on 'expanded' state

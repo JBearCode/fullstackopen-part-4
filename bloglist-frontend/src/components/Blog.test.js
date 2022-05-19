@@ -4,33 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Blog from './Blog';
 
-test('renders title and author but not other fields', () => {
-  const blog = {
-    'title': 'title to be tested',
-    'author': 'Test Terminator',
-    'url': 'a web address',
-    'likes': 34,
-    'user': {
-      'username': 'root',
-      'name': 'The Dev',
-      'id': '627cc3a7bfad3940405b9fcc'
-    },
-    'id': '627cc8de15f64203131a5973'
-  };
-
-  render(<Blog blog={blog} />);
-
-  const titleEle = screen.getByText('title to be tested', { exact : false });
-  expect(titleEle).toBeDefined();
-
-  const authorEle = screen.getByText('Test Terminator', { exact : false });
-  expect(authorEle).toBeDefined();
-
-  const likesEle = screen.queryByText('a web address');
-  expect(likesEle).toBeNull();
-});
-
-test('clicking the button expands to show URL and likes', async () => {
+describe('<Blogs />', () => {
   const blog = {
     'title': 'title to be tested',
     'author': 'Test Terminator',
@@ -48,18 +22,35 @@ test('clicking the button expands to show URL and likes', async () => {
     'username': 'root'
   };
 
-  render(
-    <Blog blog={blog} user={userObject} />
-  );
+  test('renders title and author but not other fields', () => {
+    render(<Blog blog={blog} />);
 
-  const user = userEvent.setup();
-  const button = screen.getByText('Expand');
-  await user.click(button);
+    const titleEle = screen.getByText('title to be tested', { exact : false });
+    expect(titleEle).toBeDefined();
 
-  const urlEle = screen.getByText('a web address', { exact : false });
-  expect(urlEle).toBeDefined();
+    const authorEle = screen.getByText('Test Terminator', { exact : false });
+    expect(authorEle).toBeDefined();
 
-  const likesEle = screen.getByText('34', { exact : false });
-  expect(likesEle).toBeDefined();
+    const likesEle = screen.queryByText('a web address');
+    expect(likesEle).toBeNull();
+  });
 
+  test('clicking like button three times calls function three times', async () => {
+    const mockHandler = jest.fn();
+
+    render(
+      <Blog blog={blog} user={userObject} updateLikes={mockHandler} />
+    );
+
+    const user = userEvent.setup();
+    const expandButton = screen.getByText('Expand');
+    await user.click(expandButton);
+
+    const likeButton = screen.getByText('Like');
+    await user.click(likeButton);
+    await user.click(likeButton);
+    await user.click(likeButton);
+
+    expect(mockHandler.mock.calls).toHaveLength(3);
+  });
 });
