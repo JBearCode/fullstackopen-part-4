@@ -6,6 +6,8 @@ import CreationForm from './components/CreationForm'
 import LoginForm from './components/LoginForm'
 import LogoutButton from './components/LogoutButton'
 import Togglable from './components/Togglable'
+import SortButtons from './components/SortButtons'
+import ListedBlogs from './components/ListedBlogs'
 // service to communicate with server via axios
 import blogService from './services/blogs'
 
@@ -18,6 +20,8 @@ const App = () => {
   // set message and color of notofication messages
   const [messageText, setMessageText] = useState(null)
   const [messageColor, setMessageColor] = useState("green")
+  // set sorting of displayed blogs
+  const [sortBy, setSortBy] = useState("default")
 
   // using useRef to change state of Togglable component's 'visible' state
   const creationFormRef = useRef()
@@ -72,9 +76,15 @@ const App = () => {
           <LogoutButton setUser={setUser}/>
           {creationForm()}
           <h2>Blogs</h2>
-          {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs}/>
-          )}
+          <SortButtons
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+          />
+          <ListedBlogs
+            blogs={blogs}
+            setBlogs={setBlogs}
+            sortBy={sortBy}
+          />
         </div>
       }      
     </div>
