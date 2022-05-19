@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import blogService from '../services/blogs';
+import FormField from './FormField';
 
 
 const CreationForm = ({
@@ -40,36 +41,15 @@ const CreationForm = ({
   };
 
   return (
-    <form onSubmit={handleNewBlog}>
-      <div>
-        Blog Name
-        <input
-          type="text"
-          value={newBlog}
-          name="Blogname"
-          onChange={({ target }) => setNewBlog(target.value)}
-        />
-      </div>
-      <div>
-        Author
-        <input
-          type="text"
-          value={newAuthor}
-          name="Authorname"
-          onChange={({ target }) => setNewAuthor(target.value)}
-        />
-      </div>
-      <div>
-        URL
-        <input
-          type="text"
-          value={newUrl}
-          name="URL"
-          onChange={({ target }) => setNewUrl(target.value)}
-        />
-      </div>
-      <button type="submit">Submit New Blog</button>
-    </form>
+    <FormField
+      handleNewBlog={handleNewBlog}
+      newBlog={newBlog}
+      setNewBlog={setNewBlog}
+      newAuthor={newAuthor}
+      setNewAuthor={setNewAuthor}
+      newUrl={newUrl}
+      setNewUrl={setNewUrl}
+    />
   );
 };
 
