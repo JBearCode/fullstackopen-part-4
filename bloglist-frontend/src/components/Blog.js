@@ -44,7 +44,7 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
   if (!expanded) {
     return (
       <div style={blogStyle}>
-        <p>{blog.title} by {blog.author}
+        <p className="contractedBlogPara">{blog.title} by {blog.author}
           <button onClick={toggleExpansion}>Expand</button>
         </p>
       </div>
