@@ -1,13 +1,13 @@
 import Blog from './Blog'
 
-const ListedBlogs = ({ blogs, setBlogs, sortBy }) => {
+const ListedBlogs = ({ blogs, setBlogs, sortBy, user }) => {
     if (sortBy === 'default') {
       console.log('sorting by date added')
       return (
         <div>
           {blogs
             .map(blog =>
-            <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs}/>
+            <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} user={user}/>
           )}
         </div>      
       )
@@ -19,7 +19,7 @@ const ListedBlogs = ({ blogs, setBlogs, sortBy }) => {
           <div>
             {sorted
               .map(blog =>
-                <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs}/>
+                <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} user={user}/>
             )}
           </div>      
         )

@@ -20,10 +20,12 @@ const CreationForm = ({
         try {
           // change 'visible' state in Togglable component through useRef
           creationFormRef.current.toggleVisibility()
-          const response = await blogService.create(newBlogToSubmit)
-          setBlogs(blogs.concat(response))
+          await blogService.create(newBlogToSubmit)
+          const response = await blogService.getAll()
+          const newBlog = response[response.length - 1]
+          setBlogs(blogs.concat(newBlog))
           setMessageColor('green')
-          setMessageText(`New Blog Added: ${response.title} by ${response.author}`)
+          setMessageText(`New Blog Added: ${newBlog.title} by ${newBlog.author}`)
           setUser(user)
           setNewBlog('')
           setNewAuthor('')

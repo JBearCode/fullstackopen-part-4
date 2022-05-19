@@ -23,6 +23,7 @@ const App = () => {
   // set sorting of displayed blogs
   const [sortBy, setSortBy] = useState("default")
 
+  // user.username == user.username
   // using useRef to change state of Togglable component's 'visible' state
   const creationFormRef = useRef()
   const creationForm = () => (
@@ -84,6 +85,7 @@ const App = () => {
             blogs={blogs}
             setBlogs={setBlogs}
             sortBy={sortBy}
+            user={user}
           />
         </div>
       }      

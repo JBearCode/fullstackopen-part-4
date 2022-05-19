@@ -1,10 +1,21 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({blog, blogs, setBlogs}) => {
+const Blog = ({blog, blogs, setBlogs, user}) => {
   // state for whether all blog info should be shown
   const [expanded, setExpanded] = useState(false)
   console.log(blog.user.name)
+
+  const toggleExpansion = () => {
+    expanded ? setExpanded(false) : setExpanded(true)
+  }
+
+  // handle button click to delete blogs
+  const handleDelete = (id) => {
+    console.log('delete ID', id)
+    blogService.deleteBlog(id)
+    setBlogs([...blogs].filter(b => b.id !== id))
+  }
 
   // style for each blog in list
   const blogStyle = {
@@ -13,10 +24,6 @@ const Blog = ({blog, blogs, setBlogs}) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5
-  }
-
-  const toggleExpansion = () => {
-    expanded ? setExpanded(false) : setExpanded(true)
   }
 
   // update number of likes for one blog, then update app state
@@ -41,6 +48,7 @@ const Blog = ({blog, blogs, setBlogs}) => {
       </div>  
     ) 
   } else {
+    console.log(user)
     return (
       <div style={blogStyle}>
         <p>{blog.title}<button onClick={toggleExpansion}>Hide</button></p>
@@ -48,6 +56,9 @@ const Blog = ({blog, blogs, setBlogs}) => {
         <p>URL: {blog.url}</p>
         <p>Likes: {blog.likes}<button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
         <p>Submitted by {blog.user.name}</p>
+        {(blog.user.username === user.username) && 
+        <button onClick={() => handleDelete(blog.id)}>Delete This Blog</button>
+        }
       </div>  
     ) 
   }
