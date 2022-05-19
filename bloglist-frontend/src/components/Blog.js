@@ -11,10 +11,12 @@ const Blog = ({blog, blogs, setBlogs, user}) => {
   }
 
   // handle button click to delete blogs
-  const handleDelete = (id) => {
+  const handleDelete = (id, title) => {
     console.log('delete ID', id)
-    blogService.deleteBlog(id)
-    setBlogs([...blogs].filter(b => b.id !== id))
+    if (window.confirm(`Do you want to delete "${title}"?`)) {
+      blogService.deleteBlog(id)
+      setBlogs([...blogs].filter(b => b.id !== id))
+    }
   }
 
   // style for each blog in list
@@ -57,7 +59,7 @@ const Blog = ({blog, blogs, setBlogs, user}) => {
         <p>Likes: {blog.likes}<button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
         <p>Submitted by {blog.user.name}</p>
         {(blog.user.username === user.username) && 
-        <button onClick={() => handleDelete(blog.id)}>Delete This Blog</button>
+        <button onClick={() => handleDelete(blog.id, blog.title)}>Delete This Blog</button>
         }
       </div>  
     ) 
