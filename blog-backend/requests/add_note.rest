@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs/
 Content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsb25tdXNrIiwiaWQiOiI2MjdjYzM5NGJmYWQzOTQwNDA1YjlmYzkiLCJpYXQiOjE2NTIzNjIwNjEsImV4cCI6MTY2MTAwMjA2MX0.txlC-H4XPVBsn52BDOaDhfdl8ssWWoUYLXrV_Sutl04
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyOTAzYmM2YTc3NDhjOGQxZjM3YTFlMiIsImlhdCI6MTY1MzYyMDIwMSwiZXhwIjoxNjYyMjYwMjAxfQ.ujMDEVSTRHIetlhvFDXgva-n7h2UKkjzJYb6gfPZoCs
 
 {
-    "title": "six",
-    "author": "Elon",
+    "title": "one",
+    "author": "me",
     "url": "a web address",
-    "likes": 6
+    "likes": 8
 }

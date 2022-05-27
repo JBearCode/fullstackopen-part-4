@@ -4,7 +4,6 @@ import blogService from '../services/blogs';
 const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
   // state for whether all blog info should be shown
   const [expanded, setExpanded] = useState(false);
-  console.log(blog.user.name);
 
   const toggleExpansion = () => {
     expanded ? setExpanded(false) : setExpanded(true);
@@ -38,7 +37,6 @@ const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
       </div>
     );
   } else {
-    console.log(user);
     return (
       <div style={blogStyle}>
         <p>{blog.title}<button onClick={toggleExpansion}>Hide</button></p>

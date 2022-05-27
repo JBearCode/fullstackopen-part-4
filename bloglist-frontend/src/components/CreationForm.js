@@ -50,6 +50,7 @@ const CreationForm = ({
         <div>
         Blog Name
           <input
+            id="blogname-input"
             type="text"
             value={newBlog}
             name="Blogname"
@@ -59,6 +60,7 @@ const CreationForm = ({
         <div>
         Author
           <input
+            id="author-input"
             type="text"
             value={newAuthor}
             name="Authorname"
@@ -68,13 +70,14 @@ const CreationForm = ({
         <div>
         URL
           <input
+            id="url-input"
             type="text"
             value={newUrl}
             name="URL"
             onChange={({ target }) => setNewUrl(target.value)}
           />
         </div>
-        <button type="submit">Submit New Blog</button>
+        <button id="submit-blog" type="submit">Submit New Blog</button>
       </form>
     </div>
   );
