@@ -39,7 +39,7 @@ const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
   } else {
     return (
       <div style={blogStyle}>
-        <p>{blog.title}<button className='hideButton' onClick={toggleExpansion}>Hide</button></p>
+        <p>{blog.title}<button className='expandButton' onClick={toggleExpansion}>Hide</button></p>
         <p>Author: {blog.author}</p>
         <p>URL: {blog.url}</p>
         <p>Likes: <span className='likesIntSpan'>{blog.likes}</span><button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>

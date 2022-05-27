@@ -79,28 +79,12 @@ describe('Blog App', function() {
       cy.get('.deleteButton').click();
       cy.get('body').should('not.contain', 'to be trashed');
     });
+
+    it('blogs can be sorted by likes', function() {
+      cy.contains('Sort By Likes').click();
+      cy.get('.contractedBlogPara').eq(0).contains('one');
+      cy.get('.contractedBlogPara').eq(1).contains('three');
+    });
   });
 
 });
-
-/*
-describe('Create Notes', function() {
-  beforeEach(function() {
-    cy.visit('http://localhost:3000');
-    cy.contains('Log In').click();
-    cy.get('#username-input').type('root');
-    cy.get('#password-input').type('developer');
-    cy.get('#login-button').click();
-  });
-
-  it('a new blog can be created', function() {
-    cy.contains('Add a New Blog').click();
-    cy.get('#blogname-input').type('a new entry created by cypress');
-    cy.get('#author-input').type('cypress');
-    cy.get('#url-input').type('a url');
-    cy.get('#submit-blog').click();
-    cy.reload(true);
-    cy.contains('a note created by cypress');
-  });
-});
-*/
