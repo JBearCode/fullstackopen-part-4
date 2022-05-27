@@ -61,7 +61,14 @@ describe('Blog App', function() {
     it('users can like blogs', function() {
       cy.contains('Expand').click();
       cy.contains('Hide');
+      let numLikes;
+      cy.get('.likesIntSpan').then(($span) => {
+        numLikes = $span.text();
+        cy.log(numLikes);
+
+      });
       cy.contains('Like').click();
+      cy.should('not.contain', numLikes);
     });
   });
 

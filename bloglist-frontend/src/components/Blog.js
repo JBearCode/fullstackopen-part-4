@@ -42,7 +42,7 @@ const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
         <p>{blog.title}<button onClick={toggleExpansion}>Hide</button></p>
         <p>Author: {blog.author}</p>
         <p>URL: {blog.url}</p>
-        <p>Likes: {blog.likes}<button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
+        <p>Likes: <span className='likesIntSpan'>{blog.likes}</span><button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
         <p>Submitted by {blog.user.name}</p>
         {(blog.user.username === user.username) &&
         <button onClick={() => handleDelete(blog.id, blog.title)}>Delete This Blog</button>
