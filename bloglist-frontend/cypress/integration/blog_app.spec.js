@@ -47,10 +47,21 @@ describe('Blog App', function() {
 
     it('a new blog can be created', function() {
       cy.contains('Add a New Blog').click();
-      cy.get('#blogname-input').type('a new entry created by cypress');
+      cy.get('#blogname-input').type('a new entry created by Cypress');
       cy.get('#author-input').type('cypress');
       cy.get('#url-input').type('a url');
       cy.get('#submit-blog').click();
+    });
+
+    it('createNote command works', function() {
+      cy.createBlog({ 'title': 'Cypress command note', 'author':'the command', 'url':'somewhere' });
+      cy.contains('Cypress command note');
+    });
+
+    it('users can like blogs', function() {
+      cy.contains('Expand').click();
+      cy.contains('Hide');
+      cy.contains('Like').click();
     });
   });
 
