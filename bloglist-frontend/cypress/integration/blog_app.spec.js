@@ -70,6 +70,15 @@ describe('Blog App', function() {
       cy.contains('Like').click();
       cy.should('not.contain', numLikes);
     });
+
+    it('users can delete blogs', function() {
+      cy.createBlog({ 'title': 'to be trashed', 'author':'someone', 'url':'somewhere' });
+      cy.contains('to be trashed');
+      cy.get('.expandButton').eq(3).click();
+      cy.on('window:confirm', () => true);
+      cy.get('.deleteButton').click();
+      cy.get('body').should('not.contain', 'to be trashed');
+    });
   });
 
 });

@@ -32,20 +32,20 @@ const Blog = ({ blog, blogs, setBlogs, user, updateLikes }) => {
     return (
       <div style={blogStyle}>
         <p className="contractedBlogPara">{blog.title} by {blog.author}
-          <button onClick={toggleExpansion}>Expand</button>
+          <button className='expandButton' onClick={toggleExpansion}>Expand</button>
         </p>
       </div>
     );
   } else {
     return (
       <div style={blogStyle}>
-        <p>{blog.title}<button onClick={toggleExpansion}>Hide</button></p>
+        <p>{blog.title}<button className='hideButton' onClick={toggleExpansion}>Hide</button></p>
         <p>Author: {blog.author}</p>
         <p>URL: {blog.url}</p>
         <p>Likes: <span className='likesIntSpan'>{blog.likes}</span><button onClick={() => updateLikes(blog.id, blog.likes)}>Like</button></p>
         <p>Submitted by {blog.user.name}</p>
         {(blog.user.username === user.username) &&
-        <button onClick={() => handleDelete(blog.id, blog.title)}>Delete This Blog</button>
+        <button className='deleteButton' onClick={() => handleDelete(blog.id, blog.title)}>Delete This Blog</button>
         }
       </div>
     );
